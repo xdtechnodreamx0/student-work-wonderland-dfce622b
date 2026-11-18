@@ -1,14 +1,22 @@
-# Welcome to your Lovable project
+# Student Work Wonderland
+
+https://github.com/xdtechnodreamx0/student-work-wonderland.git
+the github of another lovable project
+https://lovable.dev/preview/nQWyW2PV9HB3v6iqkkWq1PKFJrCNDTS9
+https://lovable.dev/projects/41faab14-e406-487f-b866-0d4b70d17f37 
+https://student-work-wonderland.lovable.app
+
+there were some changes still missing, see the markdown files...
 
 This project was built with [Lovable](https://lovable.dev).
 
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/4dbc241b-23fe-462e-83d4-543e30bac463).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +28,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
