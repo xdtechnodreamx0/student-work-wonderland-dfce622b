@@ -29,6 +29,18 @@ export type Project = {
 };
 
 export const PROJECTS: Project[] = [
+  {
+    id: "questworthy",
+    title: "Questworthy Math Club",
+    emoji: "⚔️",
+    blurb: "An adventure-filled math club project with quest-based arithmetic and logic puzzles.",
+    tags: ["Quests", "Logic", "Adventure"],
+    video: gloryV.url,
+    poster: gloryP.url,
+    href: "https://questworthy-math-club.lovable.app",
+    kind: "live"
+  },
+
   { id: "glory", title: "Maths Block Club — Numbers, Games & Glory", emoji: "🧙", featured: true, credit: "Led by Peer Educator Lavanya with club members from Grades 1–5", blurb: "A student-led maths website for Grades 1 to 5 at Aga Khan School Garden, with grade-wise games, quizzes, puzzles and activities that follow our school syllabus.", tags: ["Grades 1–5", "Games", "Quizzes"], video: gloryV.url, poster: gloryP.url, href: "https://numbers-games-and-glory.lovable.app", kind: "live" },
   { id: "bloom", title: "Math Bloom", emoji: "🌸", blurb: "A dreamy, flower-themed maths world with gentle colours and fun practice for young learners.", tags: ["Practice", "Cute design"], video: bloomV.url, poster: bloomP.url, href: "https://math-bloom-champions.lovable.app", kind: "live" },
   { id: "estimation", title: "Maths Gaming Adventure", emoji: "🎮", blurb: "Estimation and number games where the fun adds up — guess, check and level up your maths brain.", tags: ["Estimation", "Games"], video: estV.url, poster: estP.url, href: "https://estimation-game-time.lovable.app", kind: "live" },

@@ -77,6 +77,11 @@ function Journey() {
             </div>
           </div>
 
+          
+          <svg className="pointer-events-none absolute inset-0 hidden h-full w-full stroke-primary/20 md:block" fill="none" strokeWidth="3" strokeDasharray="6 6" aria-hidden="true">
+            <path d="M 50% 0 Q 52% 25%, 50% 50% T 50% 100%" />
+          </svg>
+
           <ol className="relative space-y-8 md:grid md:grid-cols-2 md:gap-x-24 md:gap-y-8 md:space-y-0 before:absolute before:bottom-0 before:left-5 before:top-0 before:w-1 before:rounded-full before:bg-brand before:opacity-30 md:before:left-1/2 md:before:-translate-x-1/2">
             {days.map((d, i) => {
               const banner = showBanner && d.n === 3;

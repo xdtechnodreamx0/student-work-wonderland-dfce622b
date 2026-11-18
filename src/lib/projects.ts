@@ -115,7 +115,7 @@ export function fallbackProjects(): ClubProject[] {
     details: "",
     href: p.href,
     kind: p.kind,
-    section: "team",
+    section: p.id === "questworthy" ? "extra" : "team",
     group_name: "",
     members: "",
     credit: p.credit ?? "",
