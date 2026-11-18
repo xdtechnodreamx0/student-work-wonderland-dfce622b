@@ -28,13 +28,14 @@ const NAV = [
   { to: "/photos", label: "Photos", icon: Images },
   { to: "/worksheets", label: "Worksheets", icon: FileText },
   { to: "/playground", label: "Playground", icon: Gamepad2 },
+  { to: "/games", label: "Games", icon: Gamepad2 },
   { to: "/learn", label: "Learning Path", icon: GraduationCap },
   { to: "/rankings", label: "Rankings", icon: Medal },
   { to: "/projects", label: "Projects", icon: Rocket },
   { to: "/awards", label: "Awards", icon: Trophy },
 ] as const;
 
-const TOP = ["/journey", "/learn", "/projects", "/playground"] as const;
+const TOP = ["/journey", "/learn", "/projects", "/games"] as const;
 
 export function SiteLayout({ children }: { children: ReactNode }) {
   return (

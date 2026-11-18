@@ -17,6 +17,10 @@ export type Progress = {
   top_emoji: string | null;
   top_emoji_rank: number;
   summary: string | null;
+  game_points?: number;
+  games_played?: number;
+  game_day?: string | null;
+  game_points_today?: number;
 };
 
 type Ctx = { supabase: import("@supabase/supabase-js").SupabaseClient; userId: string };
@@ -99,4 +103,50 @@ export const submitChallenge = createServerFn({ method: "POST" })
     }
     const saved = await save(context.userId, p, true);
     return { progress: saved, result, drawn: owned, certificate };
+  });
+
+
+export const recordGameResult = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { gameId: string; mode: string; points: number; won: boolean }) => ({
+    gameId: String(d.gameId ?? "").slice(0, 30),
+    mode: String(d.mode ?? "solo").slice(0, 20),
+    points: Math.min(100, Math.max(0, Number(d.points) || 0)),
+    won: Boolean(d.won),
+  }))
+  .handler(async ({ data, context }) => {
+    const p = await loadOrCreate(context as unknown as Ctx);
+    const db = await admin();
+    const today = new Date().toISOString().slice(0, 10);
+    const isNewDay = p.game_day !== today;
+    const currentTodayPoints = isNewDay ? 0 : (p.game_points_today ?? 0);
+    const maxDaily = 300;
+    const awarded = Math.min(data.points, Math.max(0, maxDaily - currentTodayPoints));
+
+    p.score = (p.score ?? 0) + awarded;
+    p.game_points = (p.game_points ?? 0) + awarded;
+    p.games_played = (p.games_played ?? 0) + 1;
+    p.game_day = today;
+    p.game_points_today = currentTodayPoints + awarded;
+
+    const { error } = await db.from("explorer_progress").update({
+      score: p.score,
+      game_points: p.game_points,
+      games_played: p.games_played,
+      game_day: p.game_day,
+      game_points_today: p.game_points_today,
+      updated_at: new Date().toISOString(),
+    }).eq("user_id", context.userId);
+
+    if (error) {
+      console.error("recordGameResult error:", error);
+      throw new Error("Could not record game points.");
+    }
+
+    return {
+      awarded,
+      totalScore: p.score,
+      totalGamePoints: p.game_points,
+      gamesPlayed: p.games_played,
+    };
   });

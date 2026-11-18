@@ -16,7 +16,7 @@ export const askPixel = createServerFn({ method: "POST" })
     return { text: await askAI(data.question, data.history, extra) };
   });
 
-export type RankingRow = { display_name: string; level_count: number; lessons: number; challenges_done: number; score: number; luck: number; emoji_count: number; top_emoji: string | null; top_emoji_rank: number; certificates: number; summary: string | null };
+export type RankingRow = { display_name: string; level_count: number; lessons: number; challenges_done: number; score: number; luck: number; emoji_count: number; top_emoji: string | null; top_emoji_rank: number; certificates: number; summary: string | null; game_points?: number; games_played?: number; };
 
 export const getRankings = createServerFn({ method: "GET" }).handler(async (): Promise<RankingRow[]> => {
   const { createClient } = await import("@supabase/supabase-js");

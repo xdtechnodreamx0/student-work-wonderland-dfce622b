@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AwardsRouteImport } from './routes/awards'
+import { Route as GamesRouteImport } from './routes/games'
 import { Route as JourneyRouteImport } from './routes/journey'
 import { Route as LearnRouteImport } from './routes/learn'
 import { Route as PhotosRouteImport } from './routes/photos'
@@ -49,6 +50,11 @@ const AuthRoute = AuthRouteImport.update({
 const AwardsRoute = AwardsRouteImport.update({
   id: '/awards',
   path: '/awards',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GamesRoute = GamesRouteImport.update({
+  id: '/games',
+  path: '/games',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JourneyRoute = JourneyRouteImport.update({
@@ -117,6 +123,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/awards': typeof AwardsRoute
+  '/games': typeof GamesRoute
   '/journey': typeof JourneyRoute
   '/learn': typeof LearnRoute
   '/photos': typeof PhotosRoute
@@ -135,6 +142,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/awards': typeof AwardsRoute
+  '/games': typeof GamesRoute
   '/journey': typeof JourneyRoute
   '/learn': typeof LearnRoute
   '/photos': typeof PhotosRoute
@@ -155,6 +163,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/awards': typeof AwardsRoute
+  '/games': typeof GamesRoute
   '/journey': typeof JourneyRoute
   '/learn': typeof LearnRoute
   '/photos': typeof PhotosRoute
@@ -175,6 +184,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/awards'
+    | '/games'
     | '/journey'
     | '/learn'
     | '/photos'
@@ -193,6 +203,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/awards'
+    | '/games'
     | '/journey'
     | '/learn'
     | '/photos'
@@ -212,6 +223,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/awards'
+    | '/games'
     | '/journey'
     | '/learn'
     | '/photos'
@@ -232,6 +244,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
   AwardsRoute: typeof AwardsRoute
+  GamesRoute: typeof GamesRoute
   JourneyRoute: typeof JourneyRoute
   LearnRoute: typeof LearnRoute
   PhotosRoute: typeof PhotosRoute
@@ -278,6 +291,13 @@ declare module '@tanstack/react-router' {
       path: '/awards'
       fullPath: '/awards'
       preLoaderRoute: typeof AwardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/games': {
+      id: '/games'
+      path: '/games'
+      fullPath: '/games'
+      preLoaderRoute: typeof GamesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/journey': {
@@ -388,6 +408,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
   AwardsRoute: AwardsRoute,
+  GamesRoute: GamesRoute,
   JourneyRoute: JourneyRoute,
   LearnRoute: LearnRoute,
   PhotosRoute: PhotosRoute,
