@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math Blog Club</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f7ff;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      background: #4f46e5;
+      color: white;
+      padding: 20px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #ffd166;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 500px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 60px 8%;
+      background: linear-gradient(135deg, #eef2ff, #dbeafe);
+    }
+
+    .hero-text {
+      max-width: 600px;
+    }
+
+    .hero h1 {
+      font-size: 55px;
+      color: #312e81;
+      margin-bottom: 15px;
+    }
+
+    .hero h1 span {
+      color: #f97316;
+    }
+
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 25px;
+      color: #444;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #f97316;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background: #ea580c;
+    }
+
+    .math-box {
+      background: white;
+      padding: 35px;
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      font-size: 30px;
+      color: #4f46e5;
+      text-align: center;
+      transform: rotate(3deg);
+    }
+
+    /* Sections */
+    section {
+      padding: 60px 8%;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 35px;
+      color: #312e81;
+      margin-bottom: 35px;
+    }
+
+    /* Topics */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 18px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    .card .icon {
+      font-size: 45px;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      color: #4f46e5;
+      margin-bottom: 10px;
+    }
+
+    /* Blog */
+    .blog-card {
+      background: white;
+      padding: 25px;
+      margin-bottom: 20px;
+      border-left: 6px solid #f97316;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+    }
+
+    .blog-card h3 {
+      color: #312e81;
+      margin-bottom: 8px;
+    }
+
+    /* Challenge */
+    .challenge {
+      background: #312e81;
+      color: white;
+      text-align: center;
+      border-radius: 25px;
+      padding: 45px;
+    }
+
+    .challenge h2 {
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    .question {
+      background: white;
+      color: #222;
+      padding: 20px;
+      border-radius: 15px;
+      margin: 25px auto;
+      max-width: 500px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    /* Contact */
+    form {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    textarea {
+      height: 120px;
+      resize: none;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    /* Footer */
+    footer {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 25px;
+    }
+
+    /* Responsive */
+    @media (max-width: 800px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      nav a {
+        margin: 0 7px;
+        font-size: 14px;
+      }
+
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">🧮 Math Blog Club</div>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#topics">Topics</a>
+      <a href="#blog">Blog</a>
+      <a href="#challenge">Challenges</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+
+    <div class="hero-text">
+      <h1>Welcome to <span>Math Blog Club!</span></h1>
+
+      <p>
+        Discover fun math tricks, exciting puzzles, helpful lessons,
+        and interesting facts about numbers.
+      </p>
+
+      <a href="#topics" class="btn">Explore Math 🚀</a>
+    </div>
+
+    <div class="math-box">
+      <div>➕ ➖ ✖️ ➗</div>
+      <br>
+      <div>2 + 2 = 4</div>
+      <div>10 × 5 = 50</div>
+      <div>100 ÷ 10 = 10</div>
+    </div>
+
+  </section>
+
+
+  <!-- Topics -->
+  <section id="topics">
+
+    <h2 class="section-title">📚 Math Topics</h2>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="icon">➕</div>
+        <h3>Addition & Subtraction</h3>
+        <p>Learn simple and useful ways to add and subtract numbers.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">✖️</div>
+        <h3>Multiplication</h3>
+        <p>Practice multiplication tables and discover quick tricks.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🍕</div>
+        <h3>Fractions</h3>
+        <p>Understand fractions with easy examples and activities.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">📐</div>
+        <h3>Geometry</h3>
+        <p>Explore shapes, angles, lines, area, and perimeter.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🔢</div>
+        <h3>Decimals</h3>
+        <p>Learn how decimals work with simple everyday examples.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🧠</div>
+        <h3>Mental Math</h3>
+        <p>Improve your speed and confidence with mental math.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Blog -->
+  <section id="blog">
+
+    <h2 class="section-title">✏️ Latest Math Blogs</h2>
+
+    <div class="blog-card">
+      <h3>🌟 5 Fun Math Tricks</h3>
+      <p>
+        Math tricks can make calculations faster and more enjoyable.
+        Try learning a new trick every week!
+      </p>
+    </div>
+
+    <div class="blog-card">
+      <h3>🔢 Why Are Numbers Important?</h3>
+      <p>
+        We use numbers every day — when telling time, shopping,
+        measuring, counting, and solving problems.
+      </p>
+    </div>
+
+    <div class="blog-card">
+      <h3>📐 Math Around Us</h3>
+      <p>
+        Shapes, patterns, measurements, and numbers are everywhere.
+        Mathematics helps us understand the world around us.
+      </p>
+    </div>
+
+  </section>
+
+
+  <!-- Challenge -->
+  <section id="challenge">
+
+    <div class="challenge">
+
+      <h2>🧠 Math Challenge of the Week</h2>
+
+      <p>Can you solve this problem?</p>
+
+      <div class="question">
+        If 5 × 6 = 30,<br>
+        what is 30 ÷ 5?
+      </div>
+
+      <p>💡 Think carefully before checking the answer!</p>
+
+    </div>
+
+  </section>
+
+
+  <!-- Contact -->
+  <section id="contact">
+
+    <h2 class="section-title">📩 Join Our Math Club</h2>
+
+    <form>
+
+      <input type="text" placeholder="Your Name" required>
+
+      <input type="email" placeholder="Your Email" required>
+
+      <textarea placeholder="Write your math question or message..."></textarea>
+
+      <button type="submit" class="btn">Send Message ✨</button>
+
+    </form>
+
+  </section>
+
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Math Blog Club | Learn • Practice • Enjoy Math 🧮</p>
+  </footer>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math Blog Club</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f7ff;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      background: #4f46e5;
+      color: white;
+      padding: 20px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #ffd166;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 500px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 60px 8%;
+      background: linear-gradient(135deg, #eef2ff, #dbeafe);
+    }
+
+    .hero-text {
+      max-width: 600px;
+    }
+
+    .hero h1 {
+      font-size: 55px;
+      color: #312e81;
+      margin-bottom: 15px;
+    }
+
+    .hero h1 span {
+      color: #f97316;
+    }
+
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 25px;
+      color: #444;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #f97316;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background: #ea580c;
+    }
+
+    .math-box {
+      background: white;
+      padding: 35px;
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      font-size: 30px;
+      color: #4f46e5;
+      text-align: center;
+      transform: rotate(3deg);
+    }
+
+    /* Sections */
+    section {
+      padding: 60px 8%;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 35px;
+      color: #312e81;
+      margin-bottom: 35px;
+    }
+
+    /* Topics */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 18px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    .card .icon {
+      font-size: 45px;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      color: #4f46e5;
+      margin-bottom: 10px;
+    }
+
+    /* Blog */
+    .blog-card {
+      background: white;
+      padding: 25px;
+      margin-bottom: 20px;
+      border-left: 6px solid #f97316;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+    }
+
+    .blog-card h3 {
+      color: #312e81;
+      margin-bottom: 8px;
+    }
+
+    /* Challenge */
+    .challenge {
+      background: #312e81;
+      color: white;
+      text-align: center;
+      border-radius: 25px;
+      padding: 45px;
+    }
+
+    .challenge h2 {
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    .question {
+      background: white;
+      color: #222;
+      padding: 20px;
+      border-radius: 15px;
+      margin: 25px auto;
+      max-width: 500px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    /* Contact */
+    form {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    textarea {
+      height: 120px;
+      resize: none;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    /* Footer */
+    footer {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 25px;
+    }
+
+    /* Responsive */
+    @media (max-width: 800px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      nav a {
+        margin: 0 7px;
+        font-size: 14px;
+      }
+
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">🧮 Math Blog Club</div>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#topics">Topics</a>
+      <a href="#blog">Blog</a>
+      <a href="#challenge">Challenges</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+
+    <div class="hero-text">
+      <h1>Welcome to <span>Math Blog Club!</span></h1>
+
+      <p>
+        Discover fun math tricks, exciting puzzles, helpful lessons,
+        and interesting facts about numbers.
+      </p>
+
+      <a href="#topics" class="btn">Explore Math 🚀</a>
+    </div>
+
+    <div class="math-box">
+      <div>➕ ➖ ✖️ ➗</div>
+      <br>
+      <div>2 + 2 = 4</div>
+      <div>10 × 5 = 50</div>
+      <div>100 ÷ 10 = 10</div>
+    </div>>>>
+
+  </section>
+
+
+  <!-- Topics -->
+  <section id="topics">
+
+    <h2 class="section-title">📚 Math Topics</h2>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="icon">➕</div>
+        <h3>Addition & Subtraction</h3>
+        <p>Learn simple and useful ways to add and subtract numbers.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">✖️</div>
+        <h3>Multiplication</h3>
+        <p>Practice multiplication tables and discover quick tricks.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🍕</div>
+        <h3>Fractions</h3>
+        <p>Understand fractions with easy examples and activities.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">📐</div>
+        <h3>Geometry</h3>
+        <p>Explore shapes, angles, lines, area, and perimeter.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🔢</div>
+        <h3>Decimals</h3>
+        <p>Learn how decimals work with simple everyday examples.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🧠</div>
+        <h3>Mental Math</h3>
+        <p>Improve your speed and confidence with mental math.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Blog -->
+  <section id="blog">
+
+    <h2 class="section-title">✏️ Latest Math Blogs</h2>
+
+    <div class="blog-card">
+      <h3>🌟 5 Fun Math Tricks</h3>
+      <p>
+        Math tricks can make calculations faster and more enjoyable.
+        Try learning a new trick every week!
+      </p>
+    </div>
+
+    <div class="blog-card">
+      <h3>🔢 Why Are Numbers Important?</h3>
+      <p>
+        We use numbers every day — when telling time, shopping,
+        measuring, counting, and solving problems.
+      </p>
+    </div>
+
+    <div class="blog-card">
+      <h3>📐 Math Around Us</h3>
+      <p>
+        Shapes, patterns, measurements, and numbers are everywhere.
+        Mathematics helps us understand the world around us.
+      </p>
+    </div>
+
+  </section>
+
+
+  <!-- Challenge -->
+  <section id="challenge">
+
+    <div class="challenge">
+
+      <h2>🧠 Math Challenge of the Week</h2>
+
+      <p>Can you solve this problem?</p>
+
+      <div class="question">
+        If 5 × 6 = 30,<br>
+        what is 30 ÷ 5?
+      </div>
+
+      <p>💡 Think carefully before checking the answer!</p>
+
+    </div>
+
+  </section>
+
+
+  <!-- Contact -->
+  <section id="contact">
+
+    <h2 class="section-title">📩 Join Our Math Club</h2>
+
+    <form>
+
+      <input type="text" placeholder="Your Name" required>
+
+      <input type="email" placeholder="Your Email" required>
+
+      <textarea placeholder="Write your math question or message..."></textarea>
+
+      <button type="submit" class="btn">Send Message ✨</button>
+
+    </form>
+
+  </section>
+
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Math Blog Club | Learn • Practice • Enjoy Math 🧮</p>
+  </footer>
+
+</body>
+</html>>>>>>>

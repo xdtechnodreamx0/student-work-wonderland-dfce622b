@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Math Fun — Learn, Play, Shine!</title>
+<style>
+:root{--ink:#25315d;--pink:#ff6fae;--yellow:#ffd85e;--blue:#68d9ff;--green:#8ee6b0;--purple:#a99bff}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,Segoe UI,sans-serif;color:var(--ink);background:linear-gradient(135deg,#fff5fb,#effaff 55%,#fffbe8);min-height:100vh}
+header{text-align:center;padding:22px 14px 10px}.logo{font-size:clamp(2rem,6vw,3.5rem);font-weight:1000;letter-spacing:-2px;color:#6548d7;text-shadow:2px 3px #fff}.logo span{color:#ff5d9e}header p{margin:5px 0 14px}
+nav,.toolbar,.smallrow{display:flex;gap:9px;justify-content:center;align-items:center;flex-wrap:wrap}nav{padding:0 12px 18px}
+button,select{font:inherit;border:0;border-radius:14px;padding:11px 15px;font-weight:800;cursor:pointer}button{background:#fff;box-shadow:0 4px 0 #d9dff0;color:var(--ink)}button:hover{filter:brightness(.98);transform:translateY(-1px)}.primary{background:var(--pink);color:#fff;box-shadow:0 4px 0 #d94b8b}select{background:#fff;box-shadow:0 3px 0 #d9dff0}
+main{max-width:1000px;margin:auto;padding:0 16px 30px}.hero{background:#fff;border-radius:28px;padding:clamp(20px,5vw,42px);box-shadow:0 12px 30px #4b55a018;display:grid;grid-template-columns:1.3fr .7fr;gap:20px;align-items:center}.hero h1{font-size:clamp(1.8rem,4.5vw,3.2rem);line-height:1.05;margin:0 0 12px}.hero p{font-size:1.08rem;line-height:1.6}.hero-art{font-size:clamp(4rem,12vw,8rem);text-align:center}.stars{color:#efaa00;font-size:1.2rem}
+.toolbar{margin:20px 0}.toolbar label{font-weight:800}.score{font-weight:900;color:#5c46c9}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{border-radius:22px;padding:20px 12px;text-align:center;min-height:155px;cursor:pointer;border:3px solid #fff;box-shadow:0 8px 18px #4b55a012}.emoji{font-size:2.7rem}.card h3{margin:8px 0 3px}.card p{margin:0;font-size:.92rem}.pink{background:#ffe0ef}.yellow{background:#fff0b5}.blue{background:#d8f5ff}.green{background:#d9fbe7}
+.panel{display:none;background:#fff;border-radius:25px;margin-top:22px;padding:clamp(18px,4vw,32px);box-shadow:0 10px 25px #4b55a018}.panel.show{display:block}.panel h2{margin-top:0}.question{font-size:clamp(1.7rem,5vw,2.8rem);font-weight:1000;text-align:center;margin:20px 0}.answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:500px;margin:0 auto}.answers button{font-size:1.2rem;background:#f1efff;padding:16px}.feedback{text-align:center;font-size:1.1rem;font-weight:800;min-height:30px;margin:14px 0}.puzzlebox{max-width:550px;margin:auto;text-align:center}.puzzlebox input{font:inherit;font-size:1.2rem;width:130px;padding:10px;border:2px solid #dcd8ff;border-radius:12px;text-align:center}.footer{text-align:center;padding:24px 10px;color:#6d7190;font-weight:700}
+@media(max-width:700px){.hero{grid-template-columns:1fr}.hero-art{grid-row:1;font-size:5rem}.cards{grid-template-columns:repeat(2,1fr)}}
+</style></head>
+<body>
+<header><div class="logo">MATH <span>FUN!</span> ✨</div><p>Learn a little. Play a lot. Become a math star!</p>
+<nav><button onclick="goHome()">🏠 Home</button><button onclick="startGame('quiz')">🧠 Quick Quiz</button><button onclick="startGame('puzzle')">🧩 Puzzle Corner</button></nav></header>
+<main>
+<section class="hero"><div><div class="stars">⭐ ⭐ ⭐ ⭐ ⭐</div><h1>Math can be<br>MAGIC!</h1><p>Choose your grade, pick a game, and practise addition, subtraction, multiplication and division. Ready to challenge your brain?</p><button class="primary" onclick="startGame('quiz')">Let's Play! 🚀</button></div><div class="hero-art">🦄➕🎈</div></section>
+<div class="toolbar"><label for="grade">Choose your grade:</label><select id="grade" onchange="newQuestion()"><option value="1">Grade 1 — Easy Peasy</option><option value="2">Grade 2 — Little Star</option><option value="3" selected>Grade 3 — Brain Booster</option><option value="4">Grade 4 — Super Solver</option><option value="5">Grade 5 — Math Champion</option></select><span class="score" id="topScore">⭐ Stars: 0</span></div>
+<section class="cards">
+<div class="card pink" onclick="startGame('add')"><div class="emoji">➕</div><h3>Addition</h3><p>Put numbers together</p></div>
+<div class="card yellow" onclick="startGame('subtract')"><div class="emoji">➖</div><h3>Subtraction</h3><p>Find the difference</p></div>
+<div class="card blue" onclick="startGame('multiply')"><div class="emoji">✖️</div><h3>Multiplication</h3><p>Make equal groups</p></div>
+<div class="card green" onclick="startGame('divide')"><div class="emoji">➗</div><h3>Division</h3><p>Share fairly</p></div>
+</section>
+<section class="panel show" id="game"><h2 id="gameTitle">🎯 Quick Quiz</h2><p style="text-align:center">Choose the correct answer. Every correct answer earns a star!</p><div class="question" id="question">7 + 5 = ?</div><div class="answers" id="answers"></div><div class="feedback" id="feedback" aria-live="polite"></div><div class="smallrow"><button onclick="newQuestion()">Next question ➡️</button><button onclick="startGame('puzzle')">Try a puzzle 🧩</button></div></section>
+<section class="panel" id="puzzle"><div class="puzzlebox"><h2>🧩 Puzzle Corner</h2><p>Solve this number riddle!</p><div class="question" id="puzzleQ">I am 3 more than 14. What number am I?</div><input id="puzzleAnswer" type="number" aria-label="Puzzle answer" placeholder="Your answer"><button class="primary" onclick="checkPuzzle()">Check it!</button><div class="feedback" id="puzzleFeedback" aria-live="polite"></div><button onclick="newPuzzle()">New puzzle 🔄</button></div></section>
+</main><div class="footer">Made for curious minds 💜 Keep practising — you're doing great!</div>
+<script>
+let stars=0, mode='quiz', answer=12, puzzleAnswer=17, first=true;
+const titles={quiz:'🎯 Quick Quiz',add:'➕ Addition Time',subtract:'➖ Subtraction Time',multiply:'✖️ Multiplication Time',divide:'➗ Division Time'};
+function goHome(){document.getElementById('game').classList.add('show');document.getElementById('puzzle').classList.remove('show');startGame('quiz')}
+function startGame(m){mode=m;if(m==='puzzle'){document.getElementById('game').classList.remove('show');document.getElementById('puzzle').classList.add('show');newPuzzle();return}document.getElementById('puzzle').classList.remove('show');document.getElementById('game').classList.add('show');document.getElementById('gameTitle').textContent=titles[m]||titles.quiz;newQuestion()}
+function newQuestion(){if(mode==='puzzle')mode='quiz';document.getElementById('feedback').textContent='';let g=+document.getElementById('grade').value,max=g===1?10:g===2?20:g===3?50:g===4?100:250,a,b,op;
+if(mode==='add'||mode==='subtract'||mode==='multiply'||mode==='divide')op=mode;else op=['add','subtract','multiply','divide'][Math.floor(Math.random()*4)];
+if(op==='multiply'){a=rand(2,Math.min(12,g+3));b=rand(2,Math.min(10,g+2));answer=a*b}
+else if(op==='divide'){b=rand(2,Math.min(12,g+3));answer=rand(2,Math.min(12,g+3));a=b*answer}
+else{a=rand(1,max);b=rand(1,max);if(op==='subtract'&&b>a)[a,b]=[b,a];answer=op==='add'?a+b:a-b}
+let symbol={add:'+',subtract:'−',multiply:'×',divide:'÷'}[op];document.getElementById('question').textContent=`${a} ${symbol} ${b} = ?`;let opts=new Set([answer]);while(opts.size<4){let v=answer+rand(-Math.max(4,g*3),Math.max(5,g*4));if(v>=0&&v!==answer)opts.add(v)}let arr=[...opts].sort(()=>Math.random()-.5);document.getElementById('answers').innerHTML='';arr.forEach(v=>{let btn=document.createElement('button');btn.textContent=v;btn.onclick=()=>checkAnswer(v);document.getElementById('answers').appendChild(btn)});}
+function checkAnswer(v){let f=document.getElementById('feedback');if(v===answer){f.textContent='🎉 Correct! You earned a star!';stars++;document.getElementById('topScore').textContent='⭐ Stars: '+stars;document.querySelectorAll('#answers button').forEach(b=>b.disabled=true)}else{f.textContent='😊 Not quite! Try another answer.'}}
+function rand(min,max){return Math.floor(Math.random()*(max-min+1))+min}
+function newPuzzle(){let g=+document.getElementById('grade').value,a=rand(5,15*g),b=rand(1,5*g);puzzleAnswer=a+b;document.getElementById('puzzleQ').textContent=`Brain teaser: What is ${a} + ${b}?`;document.getElementById('puzzleAnswer').value='';document.getElementById('puzzleFeedback').textContent=''}
+function checkPuzzle(){let v=Number(document.getElementById('puzzleAnswer').value),f=document.getElementById('puzzleFeedback');if(v===puzzleAnswer){f.textContent='🌟 Brilliant! You solved it!';stars++;document.getElementById('topScore').textContent='⭐ Stars: '+stars}else f.textContent='💡 Keep trying — you can do it!'}
+newQuestion();
+</script></body></html>

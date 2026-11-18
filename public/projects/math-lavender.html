@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math Lavender 💜 Fun Math for Kids</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f3ff; --card: #ffffff; --ink: #2e2346; --muted: #6d628a;
+    --primary: #7c5cd6; --primary-soft: #ece5ff; --primary-dark: #5b3fb3;
+    --mint: #3fb68b; --mint-soft: #ddf6ec; --coral: #ef6f6c; --coral-soft: #fde4e3;
+    --sun: #f5b941; --sun-soft: #fff3d6; --line: #e4dcf7;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { font-family: "Quicksand", system-ui, sans-serif; color: var(--ink); background: radial-gradient(circle at 15% 10%, #efe6ff 0, transparent 40%), radial-gradient(circle at 90% 90%, #e3f7ef 0, transparent 40%), var(--bg); display: flex; min-height: 100vh; }
+  h1, h2, h3, .logo { font-family: "Fredoka", system-ui, sans-serif; margin: 0 0 .5rem; }
+  h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--primary-dark); }
+  h2 { font-size: 1.6rem; color: var(--primary-dark); }
+  p { line-height: 1.6; margin: .25rem 0 .75rem; }
+
+  .sidebar { width: 250px; flex-shrink: 0; background: var(--card); border-right: 2px solid var(--line); padding: 1.25rem .9rem; display: flex; flex-direction: column; gap: .35rem; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+  .logo { font-size: 1.5rem; color: var(--primary); padding: .25rem .5rem 1rem; }
+  .stars { margin: 0 .5rem .75rem; padding: .5rem .75rem; border-radius: 999px; background: var(--sun-soft); font-weight: 700; text-align: center; }
+  .nav-group-title { margin: .9rem .5rem .25rem; font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+  .nav-btn { text-align: left; border: 0; background: transparent; padding: .65rem .8rem; border-radius: 14px; font: 700 1rem "Quicksand", sans-serif; color: var(--ink); cursor: pointer; transition: background .2s, transform .2s; display: flex; justify-content: space-between; align-items: center; }
+  .nav-btn:hover { background: var(--primary-soft); transform: translateX(3px); }
+  .nav-btn.active { background: var(--primary); color: #fff; }
+  .nav-btn .done { font-size: .9rem; }
+
+  main { flex: 1; padding: clamp(1rem, 3vw, 2.5rem); max-width: 900px; }
+  .page { display: none; animation: pop .35s ease; }
+  .page.active { display: block; }
+  @keyframes pop { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  .card { background: var(--card); border: 2px solid var(--line); border-radius: 24px; padding: 1.5rem; margin-bottom: 1.25rem; box-shadow: 0 10px 30px -18px rgba(91,63,179,.45); }
+  .interactive-box { background: var(--primary-soft); border-radius: 20px; padding: 1.25rem; text-align: center; margin-top: 1rem; }
+  .btn { display: inline-flex; align-items: center; gap: .4rem; border: 0; border-radius: 999px; padding: .7rem 1.3rem; font: 700 1rem "Quicksand", sans-serif; cursor: pointer; background: var(--primary); color: #fff; transition: transform .15s, box-shadow .15s; margin: .25rem; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 18px -8px var(--primary); }
+  .btn-green { background: var(--mint); }
+  .btn-light { background: #fff; color: var(--primary-dark); border: 2px solid var(--primary); }
+
+  .quiz-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: .75rem; margin-top: 1rem; }
+  .option-btn { border: 2px solid var(--line); background: #fff; border-radius: 18px; padding: .9rem; font: 700 1.2rem "Fredoka", sans-serif; color: var(--ink); cursor: pointer; transition: transform .15s, border-color .15s, background .15s; }
+  .option-btn:hover { transform: scale(1.04); border-color: var(--primary); }
+  .option-btn.right { background: var(--mint-soft); border-color: var(--mint); }
+  .option-btn.wrong { background: var(--coral-soft); border-color: var(--coral); animation: shake .35s; }
+  @keyframes shake { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+  .feedback { min-height: 1.8rem; margin-top: .9rem; font-weight: 700; font-size: 1.1rem; }
+  .feedback.good { color: var(--mint); }
+  .feedback.bad { color: var(--coral); }
+  .big { font-family: "Fredoka", sans-serif; font-size: clamp(2rem, 6vw, 3rem); margin: .5rem 0; }
+
+  #apple-container { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; font-size: 2.6rem; }
+  .apple { cursor: pointer; border: 0; background: none; font-size: inherit; transition: transform .2s, opacity .2s; }
+  .apple:hover { transform: scale(1.15) rotate(-6deg); }
+  .apple.counted { opacity: .3; transform: scale(.85); cursor: default; }
+  .count-num { color: var(--primary); }
+
+  input[type=text] { width: min(100%, 360px); padding: .8rem 1rem; border-radius: 14px; border: 2px solid var(--line); font: 700 1.05rem "Quicksand", sans-serif; margin: .5rem 0 1rem; }
+  input[type=text]:focus { outline: 3px solid var(--primary-soft); border-color: var(--primary); }
+  canvas { width: 100%; max-width: 600px; height: auto; border-radius: 16px; box-shadow: 0 10px 30px -15px rgba(91,63,179,.6); }
+  .cert-container { text-align: center; }
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+  .tile { border-radius: 18px; padding: 1rem; font-weight: 700; }
+  .menu-toggle { display: none; }
+
+  @media (max-width: 760px) {
+    body { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: static; flex-direction: row; flex-wrap: wrap; border-right: 0; border-bottom: 2px solid var(--line); }
+    .logo { width: 100%; padding-bottom: .25rem; }
+    .stars { width: 100%; }
+    .nav-group-title { display: none; }
+    .nav-btn { flex: 1 1 45%; font-size: .9rem; }
+  }
+</style>
+</head>
+<body>
+  <nav class="sidebar" aria-label="Math Lavender pages">
+    <div class="logo">🪻 Math Lavender</div>
+    <div class="stars" aria-live="polite">⭐ Stars: <span id="star-count">0</span> / 5</div>
+    <button class="nav-btn active" data-page="1">🏠 Home</button>
+    <div class="nav-group-title">Grade 1</div>
+    <button class="nav-btn" data-page="2">🍎 Counting Fun <span class="done" id="done-2"></span></button>
+    <button class="nav-btn" data-page="3">🔺 Shapes <span class="done" id="done-3"></span></button>
+    <div class="nav-group-title">Grade 2</div>
+    <button class="nav-btn" data-page="4">➕ Adding <span class="done" id="done-4"></span></button>
+    <button class="nav-btn" data-page="5">🪙 Money <span class="done" id="done-5"></span></button>
+    <div class="nav-group-title">Grade 3</div>
+    <button class="nav-btn" data-page="6">✖️ Multiplication <span class="done" id="done-6"></span></button>
+    <div class="nav-group-title">Rewards</div>
+    <button class="nav-btn" data-page="7">🏆 Certificate</button>
+  </nav>
+
+  <main>
+    <section id="page-1" class="page active">
+      <div class="card">
+        <h1>Welcome to Math Lavender! 🪻✨</h1>
+        <p>Learn maths through fun, colourful games and puzzles made for Grades 1 to 3. Finish each page to earn a ⭐ — collect all 5 stars to unlock your Math Champion certificate!</p>
+        <div class="interactive-box">
+          <h3>🎉 Ready to start your adventure?</h3>
+          <button class="btn btn-green" data-go="2">Start Grade 1 ➔</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2>🌟 Lavender Fun Fact</h2>
+        <p id="daily-fact"></p>
+        <button class="btn btn-light" id="fact-btn">Show another fact</button>
+      </div>
+      <div class="grid-2">
+        <div class="tile" style="background:var(--mint-soft)">🍎 Count apples</div>
+        <div class="tile" style="background:var(--sun-soft)">🔺 Find shapes</div>
+        <div class="tile" style="background:var(--coral-soft)">🪙 Add coins</div>
+        <div class="tile" style="background:var(--primary-soft)">⭐ Multiply stars</div>
+      </div>
+    </section>
+
+    <section id="page-2" class="page">
+      <div class="card">
+        <h2>Grade 1 — Counting Fun 🍎</h2>
+        <p>Tap each apple once to count it. How many are there?</p>
+        <div class="interactive-box">
+          <div id="apple-container"></div>
+          <h3 style="margin-top:15px">Apples counted: <span id="apple-count" class="count-num">0</span></h3>
+          <div class="quiz-options" id="apple-options"></div>
+          <div id="apple-feedback" class="feedback" aria-live="polite"></div>
+          <button class="btn btn-light" id="apple-reset">New apples 🔄</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-3" class="page">
+      <div class="card">
+        <h2>Grade 1 — Shapes 🟡🔺🟦</h2>
+        <p>Which shape is a <strong id="shape-name">Triangle</strong>?</p>
+        <div class="interactive-box">
+          <div class="quiz-options" id="shape-options"></div>
+          <div id="shape-feedback" class="feedback" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-4" class="page">
+      <div class="card">
+        <h2>Grade 2 — Double-Digit Adding ➕</h2>
+        <p>Solve the sum. Tip: add the tens first, then the ones!</p>
+        <div class="interactive-box">
+          <div class="big" id="add-question">24 + 13 = ?</div>
+          <div class="quiz-options" id="add-options"></div>
+          <div id="add-feedback" class="feedback" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-5" class="page">
+      <div class="card">
+        <h2>Grade 2 — Money 🪙</h2>
+        <p>Add up the coins. How many rupees is that?</p>
+        <div class="interactive-box">
+          <div class="big" id="money-question"></div>
+          <div class="quiz-options" id="money-options"></div>
+          <div id="money-feedback" class="feedback" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-6" class="page">
+      <div class="card">
+        <h2>Grade 3 — Multiplication ✖️</h2>
+        <p>Multiplication is just repeated adding! Count the groups of stars.</p>
+        <div class="interactive-box">
+          <div id="multi-stars" style="font-size:1.8rem;line-height:1.8"></div>
+          <div class="big" id="multi-question"></div>
+          <div class="quiz-options" id="multi-options"></div>
+          <div id="multi-feedback" class="feedback" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-7" class="page">
+      <div class="card cert-container">
+        <h2>🏆 Your Math Champion Certificate</h2>
+        <p id="cert-hint">Type your name, then download or print your certificate!</p>
+        <input type="text" id="student-name" placeholder="Type your name here" maxlength="40" aria-label="Your name">
+        <br>
+        <canvas id="certCanvas" width="1200" height="800"></canvas>
+        <div style="margin-top:1rem">
+          <button class="btn" id="cert-download">⬇️ Download</button>
+          <button class="btn btn-light" onclick="window.print()">🖨️ Print</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
+  <script>
+  (function () {
+    var done = {};
+    var FACTS = [
+      "Honeybees do a “waggle dance” that uses angles to show other bees where flowers are! 🐝",
+      "A lavender flower spike can hold more than 40 tiny flowers. Try counting them next time! 🪻",
+      "Zero was first written as a dot in ancient India. Without it, we couldn't write 10 or 100! 0️⃣",
+      "Starfish usually have 5 arms — and 5 is an odd number! ⭐",
+      "If you fold a square in half corner to corner, you get two triangles! 🔺",
+      "A clock face is a circle split into 12 equal parts. 🕛"
+    ];
+    var factIndex = 0;
+    function rand(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+    function shuffle(arr) { for (var i = arr.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = arr[i]; arr[i] = arr[j]; arr[j] = t; } return arr; }
+    function choices(answer, spread) { var set = [answer]; while (set.length < 4) { var c = answer + rand(-spread, spread); if (c > 0 && set.indexOf(c) < 0) set.push(c); } return shuffle(set); }
+    function party() { if (window.confetti) window.confetti({ particleCount: 90, spread: 70, origin: { y: 0.7 }, colors: ["#7c5cd6", "#3fb68b", "#f5b941", "#ef6f6c"] }); }
+
+    function showPage(n) {
+      document.querySelectorAll(".page").forEach(function (p) { p.classList.remove("active"); });
+      document.getElementById("page-" + n).classList.add("active");
+      document.querySelectorAll(".nav-btn").forEach(function (b) { b.classList.toggle("active", b.getAttribute("data-page") === String(n)); });
+      if (n === 7) drawCertificate();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    function earn(page) {
+      if (done[page]) return;
+      done[page] = true;
+      document.getElementById("done-" + page).textContent = "⭐";
+      document.getElementById("star-count").textContent = Object.keys(done).length;
+      party();
+    }
+    function quiz(boxId, fbId, answer, opts, page, onRight) {
+      var box = document.getElementById(boxId), fb = document.getElementById(fbId);
+      box.innerHTML = ""; fb.textContent = ""; fb.className = "feedback";
+      opts.forEach(function (o) {
+        var b = document.createElement("button");
+        b.className = "option-btn"; b.type = "button"; b.innerHTML = o.label;
+        b.onclick = function () {
+          if (o.value === answer) {
+            b.classList.add("right"); fb.textContent = "🎉 Correct! Great job!"; fb.className = "feedback good"; earn(page);
+            setTimeout(function () { if (onRight) onRight(); }, 1400);
+          } else {
+            b.classList.add("wrong"); fb.textContent = "Not quite — try again! 💪"; fb.className = "feedback bad";
+            setTimeout(function () { b.classList.remove("wrong"); }, 400);
+          }
+        };
+        box.appendChild(b);
+      });
+    }
+
+    // Counting
+    var counted = 0, totalApples = 0;
+    function resetApples() {
+      totalApples = rand(4, 10); counted = 0;
+      var c = document.getElementById("apple-container"); c.innerHTML = "";
+      document.getElementById("apple-count").textContent = "0";
+      for (var i = 0; i < totalApples; i++) {
+        var a = document.createElement("button"); a.className = "apple"; a.type = "button"; a.textContent = "🍎"; a.setAttribute("aria-label", "apple");
+        a.onclick = function (e) { var t = e.currentTarget; if (t.classList.contains("counted")) return; t.classList.add("counted"); counted++; document.getElementById("apple-count").textContent = counted; };
+        c.appendChild(a);
+      }
+      quiz("apple-options", "apple-feedback", totalApples, choices(totalApples, 3).map(function (v) { return { label: v, value: v }; }), 2);
+    }
+
+    // Shapes
+    var SHAPES = [{ n: "Triangle", e: "🔺" }, { n: "Circle", e: "🔵" }, { n: "Square", e: "🟩" }, { n: "Star", e: "⭐" }, { n: "Heart", e: "💜" }];
+    function newShape() {
+      var opts = shuffle(SHAPES.slice()).slice(0, 4), target = opts[rand(0, 3)];
+      document.getElementById("shape-name").textContent = target.n;
+      quiz("shape-options", "shape-feedback", target.n, opts.map(function (s) { return { label: s.e + " " + s.n, value: s.n }; }), 3, newShape);
+    }
+
+    // Adding
+    function newAdd() {
+      var a = rand(11, 49), b = rand(10, 40), ans = a + b;
+      document.getElementById("add-question").textContent = a + " + " + b + " = ?";
+      quiz("add-options", "add-feedback", ans, choices(ans, 10).map(function (v) { return { label: v, value: v }; }), 4, newAdd);
+    }
+
+    // Money (Pakistani coins: Rs 1, 2, 5, 10)
+    function newMoney() {
+      var coins = [1, 2, 5, 10], picked = [], n = rand(2, 4), sum = 0;
+      for (var i = 0; i < n; i++) { var c = coins[rand(0, 3)]; picked.push(c); sum += c; }
+      document.getElementById("money-question").innerHTML = picked.map(function (c) { return "🪙 Rs " + c; }).join(" + ");
+      quiz("money-options", "money-feedback", sum, choices(sum, 5).map(function (v) { return { label: "Rs " + v, value: v }; }), 5, newMoney);
+    }
+
+    // Multiplication
+    function newMulti() {
+      var g = rand(2, 5), s = rand(2, 5), ans = g * s, rows = [];
+      for (var i = 0; i < g; i++) rows.push(new Array(s + 1).join("⭐"));
+      document.getElementById("multi-stars").innerHTML = rows.join(" &nbsp;|&nbsp; ");
+      document.getElementById("multi-question").textContent = g + " groups of " + s + " = " + g + " × " + s + " = ?";
+      quiz("multi-options", "multi-feedback", ans, choices(ans, 4).map(function (v) { return { label: v, value: v }; }), 6, newMulti);
+    }
+
+    // Certificate
+    function drawCertificate() {
+      var cv = document.getElementById("certCanvas"), ctx = cv.getContext("2d"), W = cv.width, H = cv.height;
+      var stars = Object.keys(done).length, name = document.getElementById("student-name").value.trim() || "Your Name";
+      var g = ctx.createLinearGradient(0, 0, W, H); g.addColorStop(0, "#f4eeff"); g.addColorStop(1, "#e6f8f0");
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      ctx.strokeStyle = "#7c5cd6"; ctx.lineWidth = 18; ctx.strokeRect(30, 30, W - 60, H - 60);
+      ctx.strokeStyle = "#f5b941"; ctx.lineWidth = 4; ctx.strokeRect(60, 60, W - 120, H - 120);
+      ctx.textAlign = "center"; ctx.fillStyle = "#5b3fb3";
+      ctx.font = "600 70px Fredoka, sans-serif"; ctx.fillText("🪻 Math Champion 🪻", W / 2, 190);
+      ctx.fillStyle = "#6d628a"; ctx.font = "700 32px Quicksand, sans-serif"; ctx.fillText("This certificate is proudly given to", W / 2, 280);
+      ctx.fillStyle = "#2e2346"; ctx.font = "700 84px Fredoka, sans-serif"; ctx.fillText(name, W / 2, 400);
+      ctx.fillStyle = "#6d628a"; ctx.font = "700 32px Quicksand, sans-serif";
+      ctx.fillText(stars >= 5 ? "for finishing every Math Lavender challenge!" : "for practising maths at Math Lavender", W / 2, 480);
+      ctx.font = "60px sans-serif"; var s = ""; for (var i = 0; i < 5; i++) s += i < stars ? "⭐" : "☆"; ctx.fillStyle = "#f5b941"; ctx.fillText(s, W / 2, 580);
+      ctx.fillStyle = "#6d628a"; ctx.font = "700 26px Quicksand, sans-serif";
+      ctx.fillText("Math Blog Club · " + new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }), W / 2, 690);
+      document.getElementById("cert-hint").textContent = stars >= 5 ? "🎉 You earned all 5 stars! Type your name and download your certificate." : "You have " + stars + " of 5 stars. Finish all pages to become a full Math Champion!";
+    }
+
+    document.querySelectorAll("[data-page]").forEach(function (b) { b.addEventListener("click", function () { showPage(Number(b.getAttribute("data-page"))); }); });
+    document.querySelectorAll("[data-go]").forEach(function (b) { b.addEventListener("click", function () { showPage(Number(b.getAttribute("data-go"))); }); });
+    document.getElementById("apple-reset").onclick = resetApples;
+    document.getElementById("fact-btn").onclick = function () { factIndex = (factIndex + 1) % FACTS.length; document.getElementById("daily-fact").textContent = FACTS[factIndex]; };
+    document.getElementById("student-name").addEventListener("input", drawCertificate);
+    document.getElementById("cert-download").onclick = function () {
+      drawCertificate();
+      var a = document.createElement("a"); a.download = "math-lavender-certificate.png"; a.href = document.getElementById("certCanvas").toDataURL("image/png"); a.click();
+    };
+    document.getElementById("daily-fact").textContent = FACTS[0];
+    resetApples(); newShape(); newAdd(); newMoney(); newMulti();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (document.getElementById("page-7").classList.contains("active")) drawCertificate(); });
+  })();
+  </script>
+</body>
+</html>
