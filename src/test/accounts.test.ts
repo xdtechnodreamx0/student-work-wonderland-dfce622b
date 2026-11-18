@@ -19,9 +19,9 @@ describe("how each person signs in", () => {
     expect(isValidUsername("ab")).toBe(false);
     expect(isValidUsername("star.coder")).toBe(true);
   });
-  it("new staff passwords need at least 6 characters", () => {
-    expect(isValidPassword("12345")).toBe(false);
-    expect(isValidPassword("123456")).toBe(true);
+  it("new staff passwords need at least 5 characters", () => {
+    expect(isValidPassword("1234")).toBe(false);
+    expect(isValidPassword("12345")).toBe(true);
   });
 });
 

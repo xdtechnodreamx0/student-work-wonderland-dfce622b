@@ -21,7 +21,7 @@ function when(iso: string | null) {
 
 export function SignInManager() {
   const qc = useQueryClient();
-  const { roles } = useAuth();
+  const { profile, roles } = useAuth();
   const listFn = useServerFn(listClubLogins);
   const freeFn = useServerFn(freeStudentName);
   const freeAllFn = useServerFn(freeAllStudentNames);
@@ -124,7 +124,7 @@ export function SignInManager() {
         </div>
       </Panel>
 
-      {isAdmin && (
+      {isAdmin ? (
         <Panel title="Staff passwords" intro="Only the admin sees this. Change a password, then tell that person the new one in person.">
           <ul className="divide-y rounded-2xl border">
             {logins.data?.staff.map((p) => (
@@ -160,6 +160,44 @@ export function SignInManager() {
             ))}
           </ul>
         </Panel>
+      ) : (
+        (() => {
+          const myStaff = logins.data?.staff.find((p) => p.name === profile?.display_name);
+          if (!myStaff) return null;
+          return (
+            <Panel title="My password" intro="Change your password for signing into the club website.">
+              <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border px-4 py-3">
+                <span className="font-semibold">
+                  {ROLE_EMOJI[myStaff.kind]} {myStaff.name} <span className="text-sm text-muted-foreground">· {ROLE_LABEL[myStaff.kind]}</span>
+                </span>
+                {pwFor === myStaff.id ? (
+                  <span className="flex items-center gap-2">
+                    <Input value={newPw} onChange={(e) => setNewPw(e.target.value)} placeholder="New password" aria-label={`New password for ${myStaff.name}`} className="h-9 w-44" autoComplete="off" />
+                    <Button
+                      size="sm"
+                      onClick={() => {
+                        if (!isValidPassword(newPw)) return void toast.error(`Passwords need at least ${MIN_PASSWORD} characters.`);
+                        void run(() => pwFn({ data: { id: myStaff.id, password: newPw } }), "Password changed").then(() => {
+                          setPwFor(null);
+                          setNewPw("");
+                        });
+                      }}
+                    >
+                      Save
+                    </Button>
+                    <Button size="sm" variant="ghost" onClick={() => setPwFor(null)}>
+                      Cancel
+                    </Button>
+                  </span>
+                ) : (
+                  <Button size="sm" variant="outline" onClick={() => { setPwFor(myStaff.id); setNewPw(""); }}>
+                    <KeyRound className="h-4 w-4" /> Change my password
+                  </Button>
+                )}
+              </div>
+            </Panel>
+          );
+        })()
       )}
     </div>
   );

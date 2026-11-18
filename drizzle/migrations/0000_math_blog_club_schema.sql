@@ -161,13 +161,13 @@ create table public.club_logins (
 grant all on public.club_logins to service_role;
 alter table public.club_logins enable row level security;
 
-insert into public.club_logins (kind, display_name, sort_order) values
-  ('admin', 'Admin', 0),
-  ('teacher', 'Miss Sana Kashif', 1),
-  ('mentor', 'Muhammad Salman', 2),
-  ('mentor', 'Lavanya', 3),
-  ('mentor', 'Ekta', 4),
-  ('mentor', 'Meer Fahad', 5);
+insert into public.club_logins (kind, display_name, sort_order, password_hash) values
+  ('admin', 'Admin', 0, extensions.crypt('admin654321', extensions.gen_salt('bf'))),
+  ('teacher', 'Miss Sana Kashif', 1, extensions.crypt('12345', extensions.gen_salt('bf'))),
+  ('mentor', 'Muhammad Salman', 2, extensions.crypt('12345', extensions.gen_salt('bf'))),
+  ('mentor', 'Lavanya', 3, extensions.crypt('12345', extensions.gen_salt('bf'))),
+  ('mentor', 'Ekta', 4, extensions.crypt('12345', extensions.gen_salt('bf'))),
+  ('mentor', 'Meer Fahad', 5, extensions.crypt('12345', extensions.gen_salt('bf')));
 
 create or replace function public.check_login_password(_id uuid, _password text)
 returns boolean language sql stable security definer set search_path = public, extensions as $$
